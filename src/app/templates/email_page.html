@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Easy way | E-mail
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type= "text/css" href="{{static_autoversion('total_receiver.css')}}">
+{% endblock %}
+
+{% block body %}
+{% if request.method == 'POST' and not client_error_msg and not admin_key_error %}
+    <div class="container h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-6">
+                <table class="table table-info table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Email sended To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if founded_receivers %}
+                        {% for receiver in founded_receivers %}
+                        <tr><td>{{receiver}}</td></tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>None of the receivers</td></tr>
+                        {% endif %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="text-center">end</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-info table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>Email failed to be send To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if unfounded_receivers %}
+                        {% for receiver in unfounded_receivers %}
+                        <tr><td>{{receiver}}</td></tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>None of the receivers</td></tr>
+                        {% endif %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="text-center">end</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <a type='button' class="btn btn-warning" href="{{url_for('web.total_receiver')}}">back to choose receivers</a>
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <h2 class="text-bold text-center">Welcome to Easy way in rwanda fill the form and send email around the world</h2>
+        <form action="" method="POST">
+            <div class="form-row">
+                <div class="col-md-5 mb-3">
+                    <div class="form-group">
+                        <label for="admin_key">Admin key</label>
+                        <input id="admin_key" class="form-control" type="password" name="admin_key" placeholder="Key" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Sender email</label>
+                        <input id="email" class="form-control" type="email" name="client_email" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input id="subject" class="form-control" type="text" name="client_subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="body">Body</label>
+                        <textarea id="body" class="form-control" type="text" name="client_body" rows="4" 
+                        placeholder="Body" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="footer">Footer</label>
+                        <textarea id="footer" class="form-control" type="text" name="client_footer" rows="2"
+                        placeholder="Footer"></textarea>
+                    </div>
+                    {% if client_error_msg %}
+                    <p class="text-danger mb-2">{{client_error_msg}}</p>
+                    {% endif %}
+                    {% if admin_key_error %}
+                    <p class="text-danger mb-2">{{admin_key_error}}</p>
+                    {% endif %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                    Submit</button>
+                    <!-- Modal -->
+                    <div class="modal fade text-body text-center" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title mx-auto" id="exampleModalLabel">Email sending permission</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to send email to those receivers
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="submit" class="btn btn-success">send</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a type='button' class="btn btn-warning float-right" href="{{url_for('web.total_receiver')}}">back to choose receiver</a>
+                </div>
+                <div class="col-md-7">
+                    <h4 class="text-center text-info">This is receivers email fields</h4>
+                    <div class="form-row">
+                        {% for i in range(receivers) %}
+                            <div class="col-md-6">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{{loop.index}}</span>
+                                    </div>
+                                    <input type="email" name="receiver_{{i+1}}" class="form-control"
+                                    placeholder="Receiver-email">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Easy way | home
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type= "text/css" href="{{static_autoversion('home_page.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid h-100">
+    <div class="container text-center h-100">
+        <h2 class="text-bold">welcome to Easy way arround the world</h2>
+        <p>Have you wondered alot about how you can send muitpler people same email message with one step</p>
+        <p>Here is the way</p>
+        <div class="row d-flex align-items-center justify-content-center h-75">
+            <div class="col-md-6">
+                <table class="table table-info table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>OUR ADDRESS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>RWANDA : Kigali(Kg 403st)</td></tr>
+                        <tr><td>Official email : webmaker6official@gmail.com</td></tr>
+                        <tr><td>Support email : weberdavison@gmail.com</td></tr>
+                        <tr><td>Phone number_1 : +256775555464</td></tr>
+                        <tr><td>Phone number_2 : +250783654598</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="text-center">feel free to contact us on above address</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
