@@ -13,3 +13,6 @@ body{
 .flashed_message{
     color: rgb(81, 226, 129)
 }
+.text-center.pt-2.pb-1{
+    display: block;
+}
